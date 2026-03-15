@@ -195,40 +195,53 @@
   @media (max-width: 600px) {
     .slide {
       padding: 20px 20px 72px;
-      justify-content: flex-start;
-      padding-top: 32px;
+      justify-content: center;
     }
 
-    h1 { font-size: 2em; margin-bottom: 12px; }
-    h2 { font-size: 1.5em; margin-bottom: 20px; }
-    .subtitle { font-size: 1.05em; margin-bottom: 24px; }
+    /* Slide 3 (architecture) needs top alignment because it's tall */
+    .slide.slide-tall {
+      justify-content: flex-start;
+      padding-top: 28px;
+    }
+
+    h1 { font-size: 2.2em; margin-bottom: 14px; }
+    h2 { font-size: 1.6em; margin-bottom: 20px; }
+    .subtitle { font-size: 1.1em; margin-bottom: 28px; }
 
     .info-blocks { gap: 10px; }
-    .info-blocks .arch-block { padding: 12px 16px; min-width: auto; flex: 1; }
-    .info-blocks .arch-block .label { font-size: 0.7em; }
-    .info-blocks .arch-block .name { font-size: 0.9em; }
+    .info-blocks .arch-block {
+      padding: 14px 18px;
+      min-width: auto;
+      flex: 1;
+    }
+    .info-blocks .arch-block .label { font-size: 0.75em; }
+    .info-blocks .arch-block .name { font-size: 0.95em; }
 
     .feature-grid { grid-template-columns: 1fr; gap: 12px; }
-    .feature-card { padding: 16px 18px; }
-    .feature-card .icon { font-size: 1.4em; margin-bottom: 6px; }
-    .feature-card h3 { font-size: 1em; margin-bottom: 4px; }
-    .feature-card p { font-size: 0.9em; }
+    .feature-card { padding: 18px 20px; }
+    .feature-card .icon { font-size: 1.5em; margin-bottom: 6px; }
+    .feature-card h3 { font-size: 1.05em; margin-bottom: 4px; }
+    .feature-card p { font-size: 0.92em; line-height: 1.4; }
 
     .arch-flow { flex-direction: column; gap: 4px; }
     .arch-arrow { transform: rotate(90deg); font-size: 1em; line-height: 0.8; }
-    .arch-block { padding: 10px 16px; min-width: auto; width: 80%; }
-    .arch-block .label { font-size: 0.7em; }
-    .arch-block .name { font-size: 0.9em; }
-    .tech-note { margin-top: 14px; font-size: 0.8em; }
+    .arch-block { padding: 12px 18px; min-width: auto; width: 70%; }
+    .arch-block .label { font-size: 0.72em; }
+    .arch-block .name { font-size: 0.92em; }
+    .tech-note { margin-top: 14px; font-size: 0.82em; }
 
-    .status-list li { font-size: 0.92em; padding: 10px 0; gap: 10px; }
-    .badge { font-size: 0.62em; padding: 3px 8px; }
+    .status-list li {
+      font-size: 1em;
+      padding: 12px 0;
+      gap: 12px;
+    }
+    .badge { font-size: 0.65em; padding: 3px 10px; }
 
-    .roadmap-grid { grid-template-columns: 1fr; gap: 12px; }
-    .roadmap-card { padding: 18px; }
-    .roadmap-card .phase { font-size: 0.7em; }
-    .roadmap-card h3 { font-size: 0.95em; }
-    .roadmap-card p { font-size: 0.85em; }
+    .roadmap-grid { grid-template-columns: 1fr; gap: 14px; }
+    .roadmap-card { padding: 20px; }
+    .roadmap-card .phase { font-size: 0.72em; }
+    .roadmap-card h3 { font-size: 1em; }
+    .roadmap-card p { font-size: 0.9em; }
   }
 
   /* ===== NAV ===== */
@@ -311,7 +324,7 @@
   </div>
 </div>
 
-<div class="slide" id="s3">
+<div class="slide slide-tall" id="s3">
   <h2>Архитектура</h2>
   <div class="arch-flow">
     <div class="arch-block">
