@@ -2,435 +2,599 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Hotel Pricing Bot — Презентация</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  body {
+  :root {
+    --bg: #0f172a;
+    --card-bg: rgba(30, 41, 59, 0.85);
+    --border: rgba(148, 163, 184, 0.15);
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --blue: #60a5fa;
+    --purple: #a78bfa;
+    --dim: #64748b;
+  }
+
+  html, body {
     font-family: 'Inter', -apple-system, sans-serif;
-    background: #0f172a;
-    color: #e2e8f0;
+    background: var(--bg);
+    color: var(--text);
+    height: 100%;
     overflow: hidden;
-    height: 100vh;
-    height: 100dvh;
     -webkit-user-select: none;
     user-select: none;
+    touch-action: pan-y;
+  }
+
+  /* ===== SLIDES ===== */
+  .deck {
+    position: relative;
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden;
   }
 
   .slide {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
     height: 100dvh;
-    padding: 60px 48px 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 52px 24px 80px;
     text-align: center;
-    animation: fadeIn 0.3s ease;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateX(40px);
   }
-  .slide.active { display: flex; }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateX(30px); }
-    to { opacity: 1; transform: translateX(0); }
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
   }
 
+  .slide.exit-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  /* ===== TYPOGRAPHY ===== */
   h1 {
-    font-size: 3em;
+    font-size: clamp(1.8rem, 8vw, 2.8rem);
     font-weight: 700;
-    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    background: linear-gradient(135deg, var(--blue), var(--purple));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 16px;
-    line-height: 1.1;
+    background-clip: text;
+    margin-bottom: 14px;
+    line-height: 1.15;
   }
 
   h2 {
-    font-size: 2em;
+    font-size: clamp(1.4rem, 6vw, 2rem);
     font-weight: 600;
     color: #93c5fd;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
   }
 
   .subtitle {
-    font-size: 1.2em;
-    color: #94a3b8;
+    font-size: clamp(0.95rem, 4vw, 1.15rem);
+    color: var(--muted);
     font-weight: 300;
-    margin-bottom: 32px;
-    line-height: 1.5;
+    margin-bottom: 28px;
+    line-height: 1.55;
+    max-width: 320px;
   }
 
+  /* ===== SLIDE 1: INFO BLOCKS ===== */
   .info-blocks {
     display: flex;
-    gap: 16px;
-    margin-top: 20px;
-    flex-wrap: wrap;
+    gap: 10px;
     justify-content: center;
-  }
-
-  .feature-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    max-width: 900px;
+    flex-wrap: nowrap;
     width: 100%;
   }
 
+  .info-chip {
+    flex: 1;
+    background: var(--card-bg);
+    border: 1px solid rgba(96, 165, 250, 0.25);
+    border-radius: 14px;
+    padding: 14px 10px;
+    text-align: center;
+    min-width: 0;
+  }
+
+  .info-chip .label {
+    font-size: 0.68rem;
+    color: var(--dim);
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .info-chip .name {
+    font-size: clamp(0.8rem, 3.5vw, 0.95rem);
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ===== SLIDE 2: FEATURE GRID ===== */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+    max-width: 600px;
+  }
+
   .feature-card {
-    background: rgba(30, 41, 59, 0.8);
-    border: 1px solid rgba(148, 163, 184, 0.15);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 24px;
+    padding: 16px 14px;
     text-align: left;
   }
 
   .feature-card .icon {
-    font-size: 1.8em;
-    margin-bottom: 10px;
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    display: block;
   }
+
   .feature-card h3 {
-    font-size: 1.1em;
+    font-size: clamp(0.85rem, 3.5vw, 1rem);
     font-weight: 600;
     color: #f1f5f9;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
+    line-height: 1.3;
   }
+
   .feature-card p {
-    font-size: 1em;
-    color: #94a3b8;
-    line-height: 1.5;
-  }
-
-  .arch-flow {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 16px 0;
-  }
-  .arch-block {
-    background: rgba(30, 41, 59, 0.9);
-    border: 1px solid rgba(96, 165, 250, 0.3);
-    border-radius: 12px;
-    padding: 16px 22px;
-    text-align: center;
-    min-width: 130px;
-  }
-  .arch-block .label { font-size: 0.8em; color: #64748b; margin-bottom: 4px; }
-  .arch-block .name { font-size: 1em; font-weight: 600; color: #e2e8f0; }
-  .arch-arrow { font-size: 1.4em; color: #475569; }
-
-  .tech-note {
-    margin-top: 24px;
-    color: #64748b;
-    font-size: 0.95em;
-  }
-
-  .status-list {
-    list-style: none;
-    max-width: 700px;
-    text-align: left;
-    width: 100%;
-  }
-  .status-list li {
-    padding: 14px 0;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    font-size: 1.05em;
-    line-height: 1.4;
-  }
-  .badge {
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.7em;
-    font-weight: 600;
-    text-transform: uppercase;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .badge.done { background: rgba(34, 197, 94, 0.2); color: #4ade80; }
-  .badge.next { background: rgba(250, 204, 21, 0.2); color: #fbbf24; }
-
-  .roadmap-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
-    max-width: 900px;
-    width: 100%;
-  }
-  .roadmap-card {
-    background: rgba(30, 41, 59, 0.8);
-    border: 1px solid rgba(148, 163, 184, 0.15);
-    border-radius: 14px;
-    padding: 24px;
-    text-align: center;
-  }
-  .roadmap-card .phase {
-    font-size: 0.75em;
-    font-weight: 600;
-    color: #60a5fa;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 10px;
-  }
-  .roadmap-card h3 {
-    font-size: 1.05em;
-    color: #f1f5f9;
-    margin-bottom: 8px;
-  }
-  .roadmap-card p {
-    font-size: 0.9em;
-    color: #94a3b8;
+    font-size: clamp(0.78rem, 3vw, 0.88rem);
+    color: var(--muted);
     line-height: 1.45;
   }
 
-  /* ===== MOBILE ===== */
-  @media (max-width: 600px) {
-    .slide {
-      padding: 20px 20px 72px;
-      justify-content: center;
-    }
+  /* ===== SLIDE 3: ARCHITECTURE ===== */
+  .arch-wrapper {
+    width: 100%;
+    max-width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
 
-    /* Slide 3 (architecture) needs top alignment because it's tall */
-    .slide.slide-tall {
-      justify-content: flex-start;
-      padding-top: 28px;
-    }
+  .arch-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin: 4px 0;
+  }
 
-    h1 { font-size: 2.2em; margin-bottom: 14px; }
-    h2 { font-size: 1.6em; margin-bottom: 20px; }
-    .subtitle { font-size: 1.1em; margin-bottom: 28px; }
+  .arch-block {
+    background: var(--card-bg);
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    border-radius: 12px;
+    padding: 10px 14px;
+    text-align: center;
+    flex: 1;
+  }
 
-    .info-blocks { gap: 10px; }
-    .info-blocks .arch-block {
-      padding: 14px 18px;
-      min-width: auto;
-      flex: 1;
-    }
-    .info-blocks .arch-block .label { font-size: 0.75em; }
-    .info-blocks .arch-block .name { font-size: 0.95em; }
+  .arch-block .label {
+    font-size: 0.65rem;
+    color: var(--dim);
+    margin-bottom: 3px;
+  }
 
-    .feature-grid { grid-template-columns: 1fr; gap: 12px; }
-    .feature-card { padding: 18px 20px; }
-    .feature-card .icon { font-size: 1.5em; margin-bottom: 6px; }
-    .feature-card h3 { font-size: 1.05em; margin-bottom: 4px; }
-    .feature-card p { font-size: 0.92em; line-height: 1.4; }
+  .arch-block .name {
+    font-size: clamp(0.8rem, 3.2vw, 0.92rem);
+    font-weight: 600;
+    color: var(--text);
+  }
 
-    .arch-flow { flex-direction: column; gap: 4px; }
-    .arch-arrow { transform: rotate(90deg); font-size: 1em; line-height: 0.8; }
-    .arch-block { padding: 12px 18px; min-width: auto; width: 70%; }
-    .arch-block .label { font-size: 0.72em; }
-    .arch-block .name { font-size: 0.92em; }
-    .tech-note { margin-top: 14px; font-size: 0.82em; }
+  .arch-arrow-down {
+    font-size: 1.2rem;
+    color: var(--dim);
+    line-height: 1;
+    margin: 2px 0;
+  }
 
-    .status-list li {
-      font-size: 1em;
-      padding: 12px 0;
-      gap: 12px;
-    }
-    .badge { font-size: 0.65em; padding: 3px 10px; }
+  .arch-row-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+    margin-top: 8px;
+  }
 
-    .roadmap-grid { grid-template-columns: 1fr; gap: 14px; }
-    .roadmap-card { padding: 20px; }
-    .roadmap-card .phase { font-size: 0.72em; }
-    .roadmap-card h3 { font-size: 1em; }
-    .roadmap-card p { font-size: 0.9em; }
+  .arch-row-3 .arch-block {
+    flex: none;
+  }
+
+  .tech-note {
+    margin-top: 14px;
+    color: var(--dim);
+    font-size: 0.8rem;
+  }
+
+  /* ===== SLIDE 4: STATUS ===== */
+  .status-list {
+    list-style: none;
+    width: 100%;
+    max-width: 380px;
+    text-align: left;
+  }
+
+  .status-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
+    line-height: 1.4;
+  }
+
+  .status-list li:last-child {
+    border-bottom: none;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+    letter-spacing: 0.5px;
+  }
+
+  .badge.done { background: rgba(34, 197, 94, 0.2); color: #4ade80; }
+  .badge.next { background: rgba(250, 204, 21, 0.2); color: #fbbf24; }
+
+  /* ===== SLIDE 5: ROADMAP ===== */
+  .roadmap-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 380px;
+  }
+
+  .roadmap-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    text-align: left;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .roadmap-card .phase-badge {
+    flex-shrink: 0;
+    background: rgba(96, 165, 250, 0.15);
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .roadmap-card .content h3 {
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
+    font-weight: 600;
+    color: #f1f5f9;
+    margin-bottom: 4px;
+  }
+
+  .roadmap-card .content p {
+    font-size: clamp(0.8rem, 3vw, 0.88rem);
+    color: var(--muted);
+    line-height: 1.45;
   }
 
   /* ===== NAV ===== */
   .nav {
     position: fixed;
-    bottom: 16px;
+    bottom: 0;
     left: 0; right: 0;
     display: flex;
     justify-content: center;
-    gap: 12px;
-    z-index: 100;
+    gap: 10px;
+    padding: 12px 24px 20px;
+    background: linear-gradient(to top, rgba(15, 23, 42, 0.98) 60%, transparent);
+    z-index: 200;
   }
+
   .nav button {
     background: rgba(30, 41, 59, 0.95);
     border: 1px solid rgba(148, 163, 184, 0.25);
-    color: #e2e8f0;
-    padding: 12px 28px;
-    border-radius: 12px;
+    color: var(--text);
+    padding: 13px 32px;
+    border-radius: 13px;
     cursor: pointer;
-    font-size: 0.95em;
+    font-size: 0.95rem;
     font-family: inherit;
+    font-weight: 500;
     -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s;
+    min-width: 110px;
   }
-  .nav button:active { background: rgba(51, 65, 85, 0.95); }
 
+  .nav button:active {
+    background: rgba(51, 65, 85, 0.95);
+  }
+
+  /* ===== PAGE INDICATOR ===== */
   .page-indicator {
     position: fixed;
     top: 14px;
     right: 16px;
-    font-size: 0.8em;
-    color: #475569;
-    z-index: 100;
+    font-size: 0.78rem;
+    color: var(--dim);
+    z-index: 200;
+  }
+
+  /* ===== DOT INDICATOR ===== */
+  .dots {
+    position: fixed;
+    bottom: 72px;
+    left: 0; right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    z-index: 200;
+    pointer-events: none;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(148, 163, 184, 0.3);
+    transition: background 0.3s, transform 0.3s;
+  }
+
+  .dot.active {
+    background: var(--blue);
+    transform: scale(1.3);
   }
 </style>
 </head>
 <body>
 
-<div class="slide active" id="s1">
-  <h1>Hotel Pricing Bot</h1>
-  <p class="subtitle">Автоматический расчёт стоимости проживания для гостей отеля</p>
-  <div class="info-blocks">
-    <div class="arch-block">
-      <div class="label">Каналы</div>
-      <div class="name">Telegram + MAX</div>
-    </div>
-    <div class="arch-block">
-      <div class="label">Ввод</div>
-      <div class="name">Текст + голос 🎙️</div>
-    </div>
-    <div class="arch-block">
-      <div class="label">Валюта</div>
-      <div class="name">₽ RUB</div>
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1 -->
+  <div class="slide active" id="s1">
+    <h1>Hotel Pricing Bot</h1>
+    <p class="subtitle">Автоматический расчёт стоимости проживания для гостей отеля</p>
+    <div class="info-blocks">
+      <div class="info-chip">
+        <div class="label">Каналы</div>
+        <div class="name">Telegram + MAX</div>
+      </div>
+      <div class="info-chip">
+        <div class="label">Ввод</div>
+        <div class="name">Текст + голос 🎙️</div>
+      </div>
+      <div class="info-chip">
+        <div class="label">Валюта</div>
+        <div class="name">₽ RUB</div>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="slide" id="s2">
-  <h2>Возможности</h2>
-  <div class="feature-grid">
-    <div class="feature-card">
-      <div class="icon">💬</div>
-      <h3>Естественный язык</h3>
-      <p>Гость пишет свободным текстом. LLM извлекает даты, состав гостей, понимает правки.</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">📊</div>
-      <h3>Посуточный расчёт</h3>
-      <p>Учёт смены тарифных периодов, выходных (пт–сб) и возрастных групп.</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">🛡️</div>
-      <h3>Согласие 152-ФЗ</h3>
-      <p>Экран персональных данных до начала работы. Без согласия бот не продолжает.</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">🤖</div>
-      <h3>Guard-фильтр</h3>
-      <p>Off-topic сообщения отсеиваются с учётом контекста диалога.</p>
+  <!-- SLIDE 2 -->
+  <div class="slide" id="s2">
+    <h2>Возможности</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <span class="icon">💬</span>
+        <h3>Естественный язык</h3>
+        <p>Гость пишет свободным текстом. LLM извлекает даты, состав гостей, понимает правки.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">📊</span>
+        <h3>Посуточный расчёт</h3>
+        <p>Учёт смены тарифных периодов, выходных (пт–сб) и возрастных групп.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">🛡️</span>
+        <h3>Согласие 152-ФЗ</h3>
+        <p>Экран персданных до начала работы. Без согласия бот не продолжает.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">🤖</span>
+        <h3>Guard-фильтр</h3>
+        <p>Off-topic сообщения отсеиваются с учётом контекста диалога.</p>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="slide slide-tall" id="s3">
-  <h2>Архитектура</h2>
-  <div class="arch-flow">
-    <div class="arch-block">
-      <div class="label">Мессенджер</div>
-      <div class="name">Telegram / MAX</div>
+  <!-- SLIDE 3 -->
+  <div class="slide" id="s3">
+    <h2>Архитектура</h2>
+    <div class="arch-wrapper">
+      <!-- Flow row 1 -->
+      <div class="arch-row">
+        <div class="arch-block">
+          <div class="label">Мессенджер</div>
+          <div class="name">Telegram / MAX</div>
+        </div>
+        <span style="color:var(--dim);font-size:1rem;flex-shrink:0">→</span>
+        <div class="arch-block">
+          <div class="label">Guard</div>
+          <div class="name">GPT-4.1 mini</div>
+        </div>
+      </div>
+      <div class="arch-arrow-down">↓</div>
+      <!-- Flow row 2 -->
+      <div class="arch-row">
+        <div class="arch-block">
+          <div class="label">Нормализация</div>
+          <div class="name">LLM Dialog</div>
+        </div>
+        <span style="color:var(--dim);font-size:1rem;flex-shrink:0">→</span>
+        <div class="arch-block">
+          <div class="label">Расчёт</div>
+          <div class="name">Calc Engine</div>
+        </div>
+      </div>
+      <div class="arch-arrow-down">↓</div>
+      <!-- Storage row -->
+      <div class="arch-row-3">
+        <div class="arch-block">
+          <div class="label">Хранение</div>
+          <div class="name">MongoDB</div>
+        </div>
+        <div class="arch-block">
+          <div class="label">Конфиг</div>
+          <div class="name">JSON тарифы</div>
+        </div>
+        <div class="arch-block">
+          <div class="label">Голос</div>
+          <div class="name">Whisper API</div>
+        </div>
+      </div>
     </div>
-    <div class="arch-arrow">→</div>
-    <div class="arch-block">
-      <div class="label">Guard</div>
-      <div class="name">GPT-4.1 mini</div>
-    </div>
-    <div class="arch-arrow">→</div>
-    <div class="arch-block">
-      <div class="label">Нормализация</div>
-      <div class="name">LLM Dialog</div>
-    </div>
-    <div class="arch-arrow">→</div>
-    <div class="arch-block">
-      <div class="label">Расчёт</div>
-      <div class="name">Calc Engine</div>
+    <p class="tech-note">Python · aiogram · motor · OpenAI API</p>
+  </div>
+
+  <!-- SLIDE 4 -->
+  <div class="slide" id="s4">
+    <h2>Текущий статус</h2>
+    <ul class="status-list">
+      <li><span class="badge done">Готово</span> MVP расчёт с посуточной логикой</li>
+      <li><span class="badge done">Готово</span> Consent flow + сбор телефона</li>
+      <li><span class="badge done">Готово</span> Guard-фильтр с контекстом</li>
+      <li><span class="badge done">Готово</span> Голосовые (Whisper)</li>
+      <li><span class="badge done">Готово</span> Категории, тарифы, детализация</li>
+      <li><span class="badge next">Далее</span> Тесты и покрытие сценариев</li>
+      <li><span class="badge next">Далее</span> Адаптер для MAX</li>
+      <li><span class="badge next">Далее</span> Наличие мест (1С)</li>
+    </ul>
+  </div>
+
+  <!-- SLIDE 5 -->
+  <div class="slide" id="s5">
+    <h2>Что дальше</h2>
+    <div class="roadmap-grid">
+      <div class="roadmap-card">
+        <div class="phase-badge">Фаза 1</div>
+        <div class="content">
+          <h3>Стабилизация</h3>
+          <p>Тесты, state machine, retry и логирование</p>
+        </div>
+      </div>
+      <div class="roadmap-card">
+        <div class="phase-badge">Фаза 2</div>
+        <div class="content">
+          <h3>Мультиканальность</h3>
+          <p>Подключение MAX, единая логика</p>
+        </div>
+      </div>
+      <div class="roadmap-card">
+        <div class="phase-badge">Фаза 3</div>
+        <div class="content">
+          <h3>Интеграция</h3>
+          <p>Проверка мест через 1С, менеджер, аналитика</p>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="arch-flow" style="margin-top: 8px;">
-    <div class="arch-block">
-      <div class="label">Хранение</div>
-      <div class="name">MongoDB</div>
-    </div>
-    <div class="arch-block">
-      <div class="label">Конфиг</div>
-      <div class="name">JSON тарифы</div>
-    </div>
-    <div class="arch-block">
-      <div class="label">Голос</div>
-      <div class="name">Whisper API</div>
-    </div>
-  </div>
-  <p class="tech-note">Python · aiogram · motor · OpenAI API</p>
+
 </div>
 
-<div class="slide" id="s4">
-  <h2>Текущий статус</h2>
-  <ul class="status-list">
-    <li><span class="badge done">Готово</span> MVP расчёт с посуточной логикой</li>
-    <li><span class="badge done">Готово</span> Consent flow + сбор телефона</li>
-    <li><span class="badge done">Готово</span> Guard-фильтр с контекстом</li>
-    <li><span class="badge done">Готово</span> Голосовые (Whisper)</li>
-    <li><span class="badge done">Готово</span> Категории, тарифы, детализация</li>
-    <li><span class="badge next">Далее</span> Тесты и покрытие сценариев</li>
-    <li><span class="badge next">Далее</span> Адаптер для MAX</li>
-    <li><span class="badge next">Далее</span> Наличие мест (1С)</li>
-  </ul>
+<!-- DOTS -->
+<div class="dots" id="dots">
+  <div class="dot active" data-i="0"></div>
+  <div class="dot" data-i="1"></div>
+  <div class="dot" data-i="2"></div>
+  <div class="dot" data-i="3"></div>
+  <div class="dot" data-i="4"></div>
 </div>
 
-<div class="slide" id="s5">
-  <h2>Что дальше</h2>
-  <div class="roadmap-grid">
-    <div class="roadmap-card">
-      <div class="phase">Фаза 1</div>
-      <h3>Стабилизация</h3>
-      <p>Тесты, state machine, retry и логирование</p>
-    </div>
-    <div class="roadmap-card">
-      <div class="phase">Фаза 2</div>
-      <h3>Мультиканальность</h3>
-      <p>Подключение MAX, единая логика</p>
-    </div>
-    <div class="roadmap-card">
-      <div class="phase">Фаза 3</div>
-      <h3>Интеграция</h3>
-      <p>Проверка мест через 1С, менеджер, аналитика</p>
-    </div>
-  </div>
-</div>
-
+<!-- NAV -->
 <div class="nav">
   <button onclick="go(-1)">← Назад</button>
   <button onclick="go(1)">Далее →</button>
 </div>
+
 <div class="page-indicator" id="pageNum">1 / 5</div>
 
 <script>
 let current = 0;
 const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
 const total = slides.length;
 
 function go(d) {
+  const next = Math.max(0, Math.min(total - 1, current + d));
+  if (next === current) return;
+
+  slides[current].classList.add('exit-left');
   slides[current].classList.remove('active');
-  current = Math.max(0, Math.min(total - 1, current + d));
+
+  current = next;
+
   slides[current].classList.add('active');
-  document.getElementById('pageNum').textContent = (current+1) + ' / ' + total;
+
+  setTimeout(() => {
+    slides.forEach(s => s.classList.remove('exit-left'));
+  }, 300);
+
+  dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
+  document.getElementById('pageNum').textContent = (current + 1) + ' / ' + total;
 }
 
+// Keyboard
 document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight' || e.key === ' ') go(1);
   if (e.key === 'ArrowLeft') go(-1);
 });
 
+// Touch swipe
 let startX = 0, startY = 0;
-document.addEventListener('touchstart', e => {
+const deck = document.getElementById('deck');
+
+deck.addEventListener('touchstart', e => {
   startX = e.touches[0].clientX;
   startY = e.touches[0].clientY;
 }, { passive: true });
-document.addEventListener('touchend', e => {
+
+deck.addEventListener('touchend', e => {
   const dx = e.changedTouches[0].clientX - startX;
   const dy = e.changedTouches[0].clientY - startY;
-  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
     go(dx < 0 ? 1 : -1);
   }
 }, { passive: true });
