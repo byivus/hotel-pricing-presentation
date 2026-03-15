@@ -16,7 +16,6 @@
     overflow: hidden;
     height: 100vh;
     height: 100dvh;
-    touch-action: pan-y;
     -webkit-user-select: none;
     user-select: none;
   }
@@ -28,7 +27,7 @@
     align-items: center;
     height: 100vh;
     height: 100dvh;
-    padding: 40px 24px;
+    padding: 60px 48px 80px;
     text-align: center;
     animation: fadeIn 0.3s ease;
     overflow-y: auto;
@@ -41,33 +40,34 @@
   }
 
   h1 {
-    font-size: clamp(1.8em, 7vw, 3.2em);
+    font-size: 3em;
     font-weight: 700;
     background: linear-gradient(135deg, #60a5fa, #a78bfa);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
+    line-height: 1.1;
   }
 
   h2 {
-    font-size: clamp(1.4em, 5vw, 2.2em);
+    font-size: 2em;
     font-weight: 600;
     color: #93c5fd;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
   }
 
   .subtitle {
-    font-size: clamp(0.95em, 3vw, 1.4em);
+    font-size: 1.2em;
     color: #94a3b8;
     font-weight: 300;
-    margin-bottom: 30px;
-    line-height: 1.4;
+    margin-bottom: 32px;
+    line-height: 1.5;
   }
 
   .info-blocks {
     display: flex;
-    gap: 12px;
-    margin-top: 16px;
+    gap: 16px;
+    margin-top: 20px;
     flex-wrap: wrap;
     justify-content: center;
   }
@@ -75,55 +75,39 @@
   .feature-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 14px;
+    gap: 20px;
     max-width: 900px;
     width: 100%;
-  }
-
-  @media (max-width: 600px) {
-    .feature-grid {
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    .slide { padding: 20px 16px; justify-content: flex-start; padding-top: 28px; }
-    .roadmap-grid { grid-template-columns: 1fr !important; }
-    .arch-flow { flex-direction: column; gap: 6px !important; }
-    .arch-arrow { transform: rotate(90deg); font-size: 1em; }
-    .arch-block { padding: 10px 16px; min-width: 100px; }
-    .arch-block .name { font-size: 0.85em; }
-    .arch-block .label { font-size: 0.7em; }
-    h2 { margin-bottom: 16px; }
-    .info-blocks { flex-direction: column; align-items: center; }
   }
 
   .feature-card {
     background: rgba(30, 41, 59, 0.8);
     border: 1px solid rgba(148, 163, 184, 0.15);
-    border-radius: 14px;
-    padding: 20px;
+    border-radius: 16px;
+    padding: 24px;
     text-align: left;
   }
 
   .feature-card .icon {
-    font-size: 1.6em;
-    margin-bottom: 8px;
+    font-size: 1.8em;
+    margin-bottom: 10px;
   }
   .feature-card h3 {
-    font-size: 1em;
+    font-size: 1.1em;
     font-weight: 600;
     color: #f1f5f9;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
   .feature-card p {
-    font-size: 0.88em;
+    font-size: 1em;
     color: #94a3b8;
-    line-height: 1.45;
+    line-height: 1.5;
   }
 
   .arch-flow {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     flex-wrap: wrap;
     justify-content: center;
     margin: 16px 0;
@@ -132,13 +116,19 @@
     background: rgba(30, 41, 59, 0.9);
     border: 1px solid rgba(96, 165, 250, 0.3);
     border-radius: 12px;
-    padding: 14px 20px;
+    padding: 16px 22px;
     text-align: center;
-    min-width: 120px;
+    min-width: 130px;
   }
-  .arch-block .label { font-size: 0.75em; color: #64748b; margin-bottom: 3px; }
-  .arch-block .name { font-size: 0.95em; font-weight: 600; color: #e2e8f0; }
-  .arch-arrow { font-size: 1.3em; color: #475569; }
+  .arch-block .label { font-size: 0.8em; color: #64748b; margin-bottom: 4px; }
+  .arch-block .name { font-size: 1em; font-weight: 600; color: #e2e8f0; }
+  .arch-arrow { font-size: 1.4em; color: #475569; }
+
+  .tech-note {
+    margin-top: 24px;
+    color: #64748b;
+    font-size: 0.95em;
+  }
 
   .status-list {
     list-style: none;
@@ -147,16 +137,17 @@
     width: 100%;
   }
   .status-list li {
-    padding: 12px 0;
+    padding: 14px 0;
     border-bottom: 1px solid rgba(148, 163, 184, 0.1);
     display: flex;
     align-items: center;
-    gap: 12px;
-    font-size: clamp(0.85em, 2.5vw, 1.1em);
+    gap: 14px;
+    font-size: 1.05em;
+    line-height: 1.4;
   }
   .badge {
     display: inline-block;
-    padding: 3px 10px;
+    padding: 4px 12px;
     border-radius: 20px;
     font-size: 0.7em;
     font-weight: 600;
@@ -170,7 +161,7 @@
   .roadmap-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 16px;
+    gap: 20px;
     max-width: 900px;
     width: 100%;
   }
@@ -178,31 +169,72 @@
     background: rgba(30, 41, 59, 0.8);
     border: 1px solid rgba(148, 163, 184, 0.15);
     border-radius: 14px;
-    padding: 20px;
+    padding: 24px;
     text-align: center;
   }
   .roadmap-card .phase {
-    font-size: 0.7em;
+    font-size: 0.75em;
     font-weight: 600;
     color: #60a5fa;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }
   .roadmap-card h3 {
-    font-size: 0.95em;
+    font-size: 1.05em;
     color: #f1f5f9;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
   .roadmap-card p {
-    font-size: 0.8em;
+    font-size: 0.9em;
     color: #94a3b8;
-    line-height: 1.4;
+    line-height: 1.45;
   }
 
+  /* ===== MOBILE ===== */
+  @media (max-width: 600px) {
+    .slide {
+      padding: 20px 20px 72px;
+      justify-content: flex-start;
+      padding-top: 32px;
+    }
+
+    h1 { font-size: 2em; margin-bottom: 12px; }
+    h2 { font-size: 1.5em; margin-bottom: 20px; }
+    .subtitle { font-size: 1.05em; margin-bottom: 24px; }
+
+    .info-blocks { gap: 10px; }
+    .info-blocks .arch-block { padding: 12px 16px; min-width: auto; flex: 1; }
+    .info-blocks .arch-block .label { font-size: 0.7em; }
+    .info-blocks .arch-block .name { font-size: 0.9em; }
+
+    .feature-grid { grid-template-columns: 1fr; gap: 12px; }
+    .feature-card { padding: 16px 18px; }
+    .feature-card .icon { font-size: 1.4em; margin-bottom: 6px; }
+    .feature-card h3 { font-size: 1em; margin-bottom: 4px; }
+    .feature-card p { font-size: 0.9em; }
+
+    .arch-flow { flex-direction: column; gap: 4px; }
+    .arch-arrow { transform: rotate(90deg); font-size: 1em; line-height: 0.8; }
+    .arch-block { padding: 10px 16px; min-width: auto; width: 80%; }
+    .arch-block .label { font-size: 0.7em; }
+    .arch-block .name { font-size: 0.9em; }
+    .tech-note { margin-top: 14px; font-size: 0.8em; }
+
+    .status-list li { font-size: 0.92em; padding: 10px 0; gap: 10px; }
+    .badge { font-size: 0.62em; padding: 3px 8px; }
+
+    .roadmap-grid { grid-template-columns: 1fr; gap: 12px; }
+    .roadmap-card { padding: 18px; }
+    .roadmap-card .phase { font-size: 0.7em; }
+    .roadmap-card h3 { font-size: 0.95em; }
+    .roadmap-card p { font-size: 0.85em; }
+  }
+
+  /* ===== NAV ===== */
   .nav {
     position: fixed;
-    bottom: 20px;
+    bottom: 16px;
     left: 0; right: 0;
     display: flex;
     justify-content: center;
@@ -213,31 +245,22 @@
     background: rgba(30, 41, 59, 0.95);
     border: 1px solid rgba(148, 163, 184, 0.25);
     color: #e2e8f0;
-    padding: 12px 24px;
+    padding: 12px 28px;
     border-radius: 12px;
     cursor: pointer;
-    font-size: 0.9em;
+    font-size: 0.95em;
+    font-family: inherit;
     -webkit-tap-highlight-color: transparent;
   }
   .nav button:active { background: rgba(51, 65, 85, 0.95); }
 
   .page-indicator {
     position: fixed;
-    top: 16px;
-    right: 20px;
+    top: 14px;
+    right: 16px;
     font-size: 0.8em;
     color: #475569;
     z-index: 100;
-  }
-
-  .swipe-hint {
-    position: fixed;
-    bottom: 70px;
-    left: 0; right: 0;
-    text-align: center;
-    font-size: 0.75em;
-    color: #334155;
-    pointer-events: none;
   }
 </style>
 </head>
@@ -311,7 +334,7 @@
       <div class="name">Calc Engine</div>
     </div>
   </div>
-  <div class="arch-flow" style="margin-top: 12px;">
+  <div class="arch-flow" style="margin-top: 8px;">
     <div class="arch-block">
       <div class="label">Хранение</div>
       <div class="name">MongoDB</div>
@@ -325,20 +348,20 @@
       <div class="name">Whisper API</div>
     </div>
   </div>
-  <p style="margin-top:24px; color:#64748b; font-size:0.85em;">Python · aiogram · motor · OpenAI API</p>
+  <p class="tech-note">Python · aiogram · motor · OpenAI API</p>
 </div>
 
 <div class="slide" id="s4">
   <h2>Текущий статус</h2>
   <ul class="status-list">
-    <li><span class="badge done">Готово</span> MVP расчёт с посуточной логикой и периодами</li>
+    <li><span class="badge done">Готово</span> MVP расчёт с посуточной логикой</li>
     <li><span class="badge done">Готово</span> Consent flow + сбор телефона</li>
-    <li><span class="badge done">Готово</span> Guard-фильтр с контекстом диалога</li>
-    <li><span class="badge done">Готово</span> Голосовые сообщения (Whisper)</li>
-    <li><span class="badge done">Готово</span> Выбор категории и тарифа, детализация</li>
+    <li><span class="badge done">Готово</span> Guard-фильтр с контекстом</li>
+    <li><span class="badge done">Готово</span> Голосовые (Whisper)</li>
+    <li><span class="badge done">Готово</span> Категории, тарифы, детализация</li>
     <li><span class="badge next">Далее</span> Тесты и покрытие сценариев</li>
-    <li><span class="badge next">Далее</span> Адаптер для мессенджера MAX</li>
-    <li><span class="badge next">Далее</span> Проверка наличия мест (1С)</li>
+    <li><span class="badge next">Далее</span> Адаптер для MAX</li>
+    <li><span class="badge next">Далее</span> Наличие мест (1С)</li>
   </ul>
 </div>
 
@@ -348,7 +371,7 @@
     <div class="roadmap-card">
       <div class="phase">Фаза 1</div>
       <h3>Стабилизация</h3>
-      <p>Unit-тесты, state machine, retry и логирование</p>
+      <p>Тесты, state machine, retry и логирование</p>
     </div>
     <div class="roadmap-card">
       <div class="phase">Фаза 2</div>
@@ -358,7 +381,7 @@
     <div class="roadmap-card">
       <div class="phase">Фаза 3</div>
       <h3>Интеграция</h3>
-      <p>Проверка мест через 1С, связь с менеджером, аналитика</p>
+      <p>Проверка мест через 1С, менеджер, аналитика</p>
     </div>
   </div>
 </div>
@@ -368,7 +391,6 @@
   <button onclick="go(1)">Далее →</button>
 </div>
 <div class="page-indicator" id="pageNum">1 / 5</div>
-<div class="swipe-hint">свайп ← →</div>
 
 <script>
 let current = 0;
@@ -382,13 +404,11 @@ function go(d) {
   document.getElementById('pageNum').textContent = (current+1) + ' / ' + total;
 }
 
-// Keyboard
 document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight' || e.key === ' ') go(1);
   if (e.key === 'ArrowLeft') go(-1);
 });
 
-// Swipe
 let startX = 0, startY = 0;
 document.addEventListener('touchstart', e => {
   startX = e.touches[0].clientX;
